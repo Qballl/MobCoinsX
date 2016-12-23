@@ -1,0 +1,29 @@
+package me.LegitCoding1.MobCoins;
+
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+
+public class CoinsApi {
+	
+	public static void getCoins(Player p, int i){
+		Main.config.set(p.getName() + ".Coins",
+				Main.config.getInt(p.getName() + ".Coins", 0) +i);
+		Main.SaveConfig();
+		p.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "Mob" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Coins" + ChatColor.DARK_GRAY + ">> " + ChatColor.YELLOW + "A MobCoins Has Been Added To Your Collection!");
+		
+	}
+	
+	public static void loseCoins(Player p, int i){
+		Main.config.set(p.getName() + ".Coins",
+				Main.config.getInt(p.getName() + ".Coins", 0) -i);
+		Main.SaveConfig();
+		p.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "Mob" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Coins" + ChatColor.DARK_GRAY + ">> " + ChatColor.RED + ChatColor.ITALIC + i + ChatColor.YELLOW + " MobCoins Have Been Removed From Your Collection!");
+	}
+
+	public static boolean hasEnough(Player p, int i) {
+		if(Main.config.getInt(p.getName() + ".Coins") >= i)
+		return true;
+		return false;
+	}
+
+}
