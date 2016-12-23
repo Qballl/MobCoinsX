@@ -1,0 +1,105 @@
+package me.LegitCoding1.MobCoins;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+public class Command implements CommandExecutor{
+	
+    private static ItemStack make(Material material, int amount, int shrt, String displayName, List<String> lore) {
+        ItemStack item = new ItemStack(material, amount, (short) shrt);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(displayName);
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        return item;
+    }
+    
+    public static Inventory  books = Bukkit.createInventory(null, 54, ChatColor.AQUA + "" + ChatColor.BOLD + "Mob" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Coins" + ChatColor.GOLD + ""  + ChatColor.BOLD +  " Books"); static {
+
+    }
+    
+    public static Inventory  other = Bukkit.createInventory(null, 54, ChatColor.AQUA + "" + ChatColor.BOLD + "Mob" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Coins" + ChatColor.GOLD + ""  + ChatColor.BOLD +  " Other"); static {
+    	other.setItem(0, make(Material.EXP_BOTTLE, 1, 0, ChatColor.AQUA + "" + ChatColor.BOLD + "XP", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "5 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "32")));
+    	other.setItem(2, make(Material.MONSTER_EGG, 1, (short) 50, ChatColor.AQUA + "" + ChatColor.BOLD + "Creeper Egg", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "10 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "1")));
+    }
+    
+    public static Inventory blocks = Bukkit.createInventory(null, 54, ChatColor.AQUA + "" + ChatColor.BOLD + "Mob" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Coins" + ChatColor.GOLD + ""  + ChatColor.BOLD +  " Blocks"); static {
+    	blocks.setItem(0, make(Material.OBSIDIAN, 1, 0, ChatColor.AQUA + "" + ChatColor.BOLD + "Obsidian", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "2 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "64")));
+    	blocks.setItem(2, make(Material.TNT, 1, 0, ChatColor.AQUA + "" + ChatColor.BOLD + "TNT", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "2 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "32")));
+    }
+    
+    public static Inventory  potions = Bukkit.createInventory(null, 54, ChatColor.AQUA + "" + ChatColor.BOLD + "Mob" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Coins" + ChatColor.GOLD + ""  + ChatColor.BOLD +  " Potions"); static {
+    	potions.setItem(0, make(Material.POTION, 1, (short) 8225, ChatColor.AQUA + "" + ChatColor.BOLD + "Regeneration II", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "1 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "1")));
+    	potions.setItem(2, make(Material.POTION, 1, (short) 8226, ChatColor.AQUA + "" + ChatColor.BOLD + "Speed II", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "1 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "1")));
+    	potions.setItem(4, make(Material.POTION, 1, (short) 8195, ChatColor.AQUA + "" + ChatColor.BOLD + "Fire Resistance", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "1 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "1")));
+    	potions.setItem(6, make(Material.POTION, 1, (short) 8229, ChatColor.AQUA + "" + ChatColor.BOLD + "Healing II", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "1 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "1")));
+    	potions.setItem(8, make(Material.POTION, 1, (short) 8262, ChatColor.AQUA + "" + ChatColor.BOLD + "Night Vison", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "1 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "1")));
+    	potions.setItem(10, make(Material.POTION, 1, (short) 8233, ChatColor.AQUA + "" + ChatColor.BOLD + "Strength II", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "1 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "1")));
+    	potions.setItem(12, make(Material.POTION, 1, (short) 8205, ChatColor.AQUA + "" + ChatColor.BOLD + "Water Breathing", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "1 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "1")));
+    	potions.setItem(14, make(Material.POTION, 1, (short) 8292, ChatColor.AQUA + "" + ChatColor.BOLD + "Clorox Bleach", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase Bleach >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "1 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "1")));
+    }
+    
+    public static Inventory  food = Bukkit.createInventory(null, 54, ChatColor.AQUA + "" + ChatColor.BOLD + "Mob" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Coins" + ChatColor.GOLD + ""  + ChatColor.BOLD +  " Food"); static {
+    	food.setItem(0, make(Material.COOKED_BEEF, 1, 0, ChatColor.AQUA + "" + ChatColor.BOLD + "Steak", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "2 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "32")));
+    	food.setItem(2, make(Material.APPLE, 1, 0, ChatColor.AQUA + "" + ChatColor.BOLD + "Apple", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "1 MobCoin", ChatColor.RED + "Amount : " + ChatColor.AQUA + "16")));
+    	food.setItem(4, make(Material.GOLDEN_APPLE, 1, 0, ChatColor.AQUA + "" + ChatColor.BOLD + "Crapple", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "2 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "16")));
+    	food.setItem(6, make(Material.GOLDEN_APPLE, 1, (short) 1, ChatColor.AQUA + "" + ChatColor.BOLD + "Super Golden Apple", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "10 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "1")));
+    	food.setItem(8, make(Material.GRILLED_PORK, 1, 0, ChatColor.AQUA + "" + ChatColor.BOLD + "Pork", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "2 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "32")));
+    }
+    
+    public static Inventory  tools = Bukkit.createInventory(null, 54, ChatColor.AQUA + "" + ChatColor.BOLD + "Mob" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Coins" + ChatColor.GOLD + ""  + ChatColor.BOLD +  " Tools"); static {
+
+    	tools.setItem(0, make(Material.DIAMOND_AXE, 1, 0, ChatColor.AQUA + "" + ChatColor.BOLD + "Diamond Axe", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "3 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "1")));
+    	tools.setItem(2, make(Material.FLINT_AND_STEEL, 1, 0, ChatColor.AQUA + "" + ChatColor.BOLD + "Flint & Steel", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "2 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "1")));
+    }
+    
+    public static Inventory armor = Bukkit.createInventory(null, 54, ChatColor.AQUA + "" + ChatColor.BOLD + "Mob" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Coins" + ChatColor.GOLD + ""  + ChatColor.BOLD +  " Armor"); static {
+    	armor.setItem(0, make(Material.EXP_BOTTLE, 1, 0, ChatColor.AQUA + "" + ChatColor.BOLD + "XP", Arrays.asList(ChatColor.GRAY + "---------------", ChatColor.YELLOW + "< Click to purchase >", ChatColor.GRAY + "---------------", "", ChatColor.RED + "Price : " + ChatColor.LIGHT_PURPLE + "2 MobCoins", ChatColor.RED + "Amount : " + ChatColor.AQUA + "32")));
+    }
+	
+	public static Inventory categories = Bukkit.createInventory(null, 54, ChatColor.AQUA + "" + ChatColor.BOLD + "Mob" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Coins" + ChatColor.YELLOW + ""  + " Categories"); static {
+		categories.setItem(10, make(Material.GOLD_CHESTPLATE, 1, 0, ChatColor.GOLD + "" + ChatColor.BOLD + "Armor", Arrays.asList(ChatColor.GRAY + "This category cointains all", ChatColor.GRAY + "armor which can be purchased with mobcoins")));
+		categories.setItem(11, make(Material.GOLD_PICKAXE, 1, 0, ChatColor.GOLD + "" + ChatColor.BOLD + "Tools", Arrays.asList(ChatColor.GRAY + "This category cointains all", ChatColor.GRAY + "Tools which can be purchased with mobcoins")));
+		categories.setItem(12, make(Material.GOLDEN_APPLE, 1, 0, ChatColor.GOLD + "" + ChatColor.BOLD + "Food", Arrays.asList(ChatColor.GRAY + "This category cointains all", ChatColor.GRAY + "Food which can be purchased with mobcoins")));
+		categories.setItem(13, make(Material.POTION, 1, (short) 8197, ChatColor.GOLD + "" + ChatColor.BOLD + "Potions", Arrays.asList(ChatColor.GRAY + "This category cointains all", ChatColor.GRAY + "Potions which can be purchased with mobcoins")));
+		categories.setItem(14, make(Material.GOLD_BLOCK, 1, 0, ChatColor.GOLD + "" + ChatColor.BOLD + "Blocks", Arrays.asList(ChatColor.GRAY + "This category cointains all", ChatColor.GRAY + "Blocks which can be purchased with mobcoins")));
+		categories.setItem(15, make(Material.ENCHANTED_BOOK, 1, 0, ChatColor.GOLD + "" + ChatColor.BOLD + "Enchantments", Arrays.asList(ChatColor.GRAY + "This category cointains all", ChatColor.GRAY + "Enchantment books which can be purchased with mobcoins")));
+		categories.setItem(16, make(Material.GOLD_NUGGET, 1, 0, ChatColor.GOLD + "" + ChatColor.BOLD + "other", Arrays.asList(ChatColor.GRAY + "This category cointains all", ChatColor.GRAY + "other items which can be purchased with mobcoins")));
+		categories.setItem(22, make(Material.BARRIER, 1, 0, ChatColor.GOLD + "" + ChatColor.BOLD + "Close", Arrays.asList(ChatColor.GRAY + "Close MobCoin Shop")));
+		categories.setItem(40, make(Material.EYE_OF_ENDER, 1, 0, ChatColor.RED + "" + ChatColor.BOLD + "MobCoins", Arrays.asList(ChatColor.LIGHT_PURPLE + "Version [2.0]", ChatColor.AQUA + "Developed by Legit_Gaming1", ChatColor.DARK_AQUA + "Help [Click Me]")));
+	}
+
+	@Override
+	public boolean onCommand(CommandSender cs, org.bukkit.command.Command cmnd, String string, String[] strings) {
+		if (!(cs instanceof Player)) {
+			cs.sendMessage(ChatColor.RED + "Players only!");
+			return true;
+		}
+		if (string.equalsIgnoreCase("mobcoins") || string.equalsIgnoreCase("mc")) {
+			cs.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "Mob" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Coins" + ChatColor.DARK_GRAY + ">> " + ChatColor.GREEN + "" + ChatColor.UNDERLINE + Main.getPlugin().getConfig().getInt(cs.getName() + ".Coins") + ChatColor.YELLOW + "" + ChatColor.BOLD + " MobCoins");
+			cs.sendMessage(ChatColor.GRAY + "Type " + ChatColor.RED + "/coinshop" + ChatColor.GRAY + " To Use Your Coins");
+			return true;
+		} else {
+			Player p = (Player) cs;
+			if (string.equals("coinshop") || string.equals("cs")){
+				p.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "C" + ChatColor.GRAY + "" + ChatColor.BOLD + "W" + ChatColor.DARK_GRAY + "" + ChatColor.BOLD + " > " + ChatColor.RED + "More items coming soon! ");
+				p.openInventory(categories);
+			}
+		}
+		return true;
+	}
+
+}
+
