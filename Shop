@@ -1,0 +1,333 @@
+package me.LegitCoding1.MobCoins;
+
+import java.util.ArrayList;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+public class Shop implements Listener {
+	
+	@EventHandler
+	public void MenuSelector(InventoryClickEvent e) {
+		Player p = (Player) e.getWhoClicked();
+		if (e.getInventory().getName().equals(Command.categories.getName())) {
+			e.setCancelled(true);
+			
+			if (e.getCurrentItem() == null) {
+				return;
+			}
+			if (!e.getCurrentItem().hasItemMeta()) {
+				return;
+			}
+			if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "other")) {
+				e.getWhoClicked().openInventory(Command.other);
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Armour")) {
+				p.openInventory(Command.armor);
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Tools")) {
+				p.openInventory(Command.tools);
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Food")) {
+				p.openInventory(Command.food);
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Potions")) {
+				p.openInventory(Command.potions);
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Blocks")) {
+				p.openInventory(Command.blocks);
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Enchantments")) {
+				p.openInventory(Command.books);
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Close")) {
+				p.closeInventory();
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.RED + "" + ChatColor.BOLD + "MobCoins")) {
+				p.sendMessage(ChatColor.DARK_AQUA + "Kill Specific mobs such as " + ChatColor.GRAY + "(Skeleton, Blaze Zombie, Enderman)" + ChatColor.DARK_AQUA + " To receive MobCoins." + ChatColor.LIGHT_PURPLE + " Use these MobCoins to purchase items from the coinshop using /coinshop and check your mobcoin balance with /mobcoins");
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Armor")) {
+				p.openInventory(Command.armor);
+			}
+		}
+	}
+	
+	
+	@EventHandler
+	public void OnPlayerBuy(InventoryClickEvent e) {
+		Player p = (Player) e.getWhoClicked();
+		String notenough = ChatColor.AQUA + "" + ChatColor.BOLD + "Mob" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD
+				+ "Coins" + ChatColor.DARK_GRAY + ">> " + ChatColor.RED + "You dont have enough MobCoins!";
+
+		if (e.getInventory().getName().equals(Command.shop.getName())
+				|| e.getInventory().getName().equals(Command.categories.getName())
+				|| e.getInventory().getName().equals(Command.armor.getName())
+				|| e.getInventory().getName().equals(Command.blocks.getName())
+				|| e.getInventory().getName().equals(Command.books.getName())
+				|| e.getInventory().getName().equals(Command.food.getName())
+				|| e.getInventory().getName().equals(Command.other.getName())
+				|| e.getInventory().getName().equals(Command.potions.getName())
+				|| e.getInventory().getName().equals(Command.tools.getName())) {
+			e.setCancelled(true);
+
+			if (e.getCurrentItem() == null) {
+				return;
+			}
+			if (!e.getCurrentItem().hasItemMeta()) {
+				return;
+			}
+			if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "XP")) {
+				if (CoinsApi.hasEnough(p, 5)) { // if they have the amount of coins
+				CoinsApi.loseCoins(p, 5); // remove that amount
+				p.getInventory().addItem(new ItemStack(Material.EXP_BOTTLE, 32));
+			} else {
+				p.sendMessage(notenough);
+			}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Creeper Egg")) {
+				if (CoinsApi.hasEnough(p, 10)) {
+					CoinsApi.loseCoins(p, 10);
+					p.getInventory().addItem(new ItemStack(Material.MONSTER_EGG, 1, (short) 50));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Obsidian")) {
+				if (CoinsApi.hasEnough(p, 2)) {
+					CoinsApi.loseCoins(p, 2);
+					p.getInventory().addItem(new ItemStack(Material.OBSIDIAN, 64));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Regeneration II")) {
+				if (CoinsApi.hasEnough(p, 1)) {
+					CoinsApi.loseCoins(p, 1);
+					p.getInventory().addItem(new ItemStack(Material.POTION, 1, (short) 8225));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Speed II")) {
+				if (CoinsApi.hasEnough(p, 1)) {
+					CoinsApi.loseCoins(p, 1);
+					p.getInventory().addItem(new ItemStack(Material.POTION, 1, (short) 8226));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Fire Resistance")) {
+				if (CoinsApi.hasEnough(p, 1)) {
+					CoinsApi.loseCoins(p, 1);
+					p.getInventory().addItem(new ItemStack(Material.POTION, 1, (short) 8225));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Healing II")) {
+				if (CoinsApi.hasEnough(p, 1)) {
+					CoinsApi.loseCoins(p, 1);
+					p.getInventory().addItem(new ItemStack(Material.POTION, 1, (short) 8229));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Nigt Vision")) {
+				if (CoinsApi.hasEnough(p, 1)) {
+					CoinsApi.loseCoins(p, 1);
+					p.getInventory().addItem(new ItemStack(Material.POTION, 1, (short) 8262));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Regeneration II")) {
+				if (CoinsApi.hasEnough(p, 1)) {
+					CoinsApi.loseCoins(p, 1);
+					p.getInventory().addItem(new ItemStack(Material.POTION, 1, (short) 8225));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Strength II")) {
+				if (CoinsApi.hasEnough(p, 1)) {
+					CoinsApi.loseCoins(p, 1);
+					p.getInventory().addItem(new ItemStack(Material.POTION, 1, (short) 8233));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Water Breathing")) {
+				if (CoinsApi.hasEnough(p, 1)) {
+					CoinsApi.loseCoins(p, 1);
+					p.getInventory().addItem(new ItemStack(Material.POTION, 1, (short) 8205));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Clorox Bleach")) {
+				if (CoinsApi.hasEnough(p, 1)) {
+					CoinsApi.loseCoins(p, 1);
+					p.getInventory().addItem(new ItemStack(Material.POTION, 1, (short) 8292));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Steak")) {
+				if (CoinsApi.hasEnough(p, 2)) {
+					CoinsApi.loseCoins(p, 2);
+					p.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 32));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Apple")) {
+				if (CoinsApi.hasEnough(p, 1)) {
+					CoinsApi.loseCoins(p, 1);
+					p.getInventory().addItem(new ItemStack(Material.APPLE, 16));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Crapple")) {
+				if (CoinsApi.hasEnough(p, 2)) {
+					CoinsApi.loseCoins(p, 2);
+					p.getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE, 16));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Super Golden Apple")) {
+				if (CoinsApi.hasEnough(p, 10)) {
+					CoinsApi.loseCoins(p, 10);
+					p.getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE, 1, (short) 1));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Pork")) {
+				if (CoinsApi.hasEnough(p, 2)) {
+					CoinsApi.loseCoins(p, 2);
+					p.getInventory().addItem(new ItemStack(Material.GRILLED_PORK, 32));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Flint & Steel")) {
+				if (CoinsApi.hasEnough(p, 2)) {
+					CoinsApi.loseCoins(p, 2);
+					p.getInventory().addItem(new ItemStack(Material.FLINT_AND_STEEL, 1));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "Diamond Axe")) {
+				if (CoinsApi.hasEnough(p, 3)) {
+					CoinsApi.loseCoins(p, 3);
+					p.getInventory().addItem(new ItemStack(Material.DIAMOND_AXE, 1));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "" + ChatColor.BOLD + "TNT")) {
+				if (CoinsApi.hasEnough(p, 2)) {
+					CoinsApi.loseCoins(p, 2);
+					p.getInventory().addItem(new ItemStack(Material.TNT, 32));
+				} else {
+					p.sendMessage(notenough);
+				}
+			}
+		}
+	}
+	
+	public void OnPurchase(InventoryClickEvent e) {
+		ItemStack key = new ItemStack(Material.TRIPWIRE_HOOK, 1);
+		ItemMeta keymeta = key.getItemMeta();
+		keymeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Gold" + ChatColor.GRAY + "" + ChatColor.BOLD + "Key");
+		key.setItemMeta(keymeta);
+		
+		ItemStack start12 = new ItemStack(Material.ENCHANTED_BOOK, 1);
+		ItemMeta meta12 = start12.getItemMeta();
+		meta12.setDisplayName(ChatColor.AQUA + "Silk Touch I");
+		ArrayList<String> lores12 = new ArrayList<String>();
+		lores12.add(ChatColor.LIGHT_PURPLE + "Silk Touch I");
+		meta12.setLore(lores12);
+		start12.setItemMeta(meta12);
+		
+		Player p = (Player) e.getWhoClicked();
+		String name = p.getName();
+		String notenough = ChatColor.AQUA + "" + ChatColor.BOLD + "Mob" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Coins" + ChatColor.DARK_GRAY + ">> " + ChatColor.RED + "You dont have enough MobCoins!";
+
+		
+		if (e.getInventory().getName().equals(Command.shop.getName()) || e.getInventory().getName().equals(Command.categories.getName())) {
+			e.setCancelled(true);
+
+			if (e.getCurrentItem() == null) {
+				return;
+			}
+			if (!e.getCurrentItem().hasItemMeta()) {
+				return;
+			}
+			if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "TNT")) {
+				if (CoinsApi.hasEnough(p, 15)) {
+					CoinsApi.loseCoins(p, 15);
+					p.getInventory().addItem(new ItemStack(Material.TNT, 64));
+				} else {
+					p.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "Mob" + 
+				ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Coins" + 
+							ChatColor.DARK_GRAY + ">> " + ChatColor.RED + "You dont have enough MobCoins!");
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "$25,000")) {
+				if (CoinsApi.hasEnough(p, 25)) {
+					CoinsApi.loseCoins(p, 25);
+					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + name + " 25000");
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "XP Bottles")) {
+				if (CoinsApi.hasEnough(p, 5)) {
+					CoinsApi.loseCoins(p, 5);
+					p.getInventory().addItem(new ItemStack(Material.EXP_BOTTLE, 32));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "Repair Hand")) {
+				if (CoinsApi.hasEnough(p, 2)) {
+					CoinsApi.loseCoins(p, 2);
+					p.getItemInHand().setDurability((short) 0);
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "Obsidian")) {
+				if (CoinsApi.hasEnough(p, 3)) {
+					CoinsApi.loseCoins(p, 3);
+					p.getInventory().addItem(new ItemStack(Material.OBSIDIAN, 64));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "Anvil")) {
+				if (CoinsApi.hasEnough(p, 3)) {
+					CoinsApi.loseCoins(p, 3);
+					p.getInventory().addItem(new ItemStack(Material.ANVIL, 1));
+				} else {
+					p.sendMessage(notenough);
+				} 
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "Beacon")) {
+				if (CoinsApi.hasEnough(p, 15)) {
+					CoinsApi.loseCoins(p, 15);
+					p.getInventory().addItem(new ItemStack(Material.BEACON, 1));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "Enchantment Table")) {
+				if (CoinsApi.hasEnough(p, 5)) {
+					CoinsApi.loseCoins(p, 5);
+					p.getInventory().addItem(new ItemStack(Material.ENCHANTMENT_TABLE, 1));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "Creeper Eggs")) {
+				if (CoinsApi.hasEnough(p, 6)) {
+					CoinsApi.loseCoins(p, 6);
+					p.getInventory().addItem(new ItemStack(Material.MONSTER_EGG, 3, (short) 50));
+				} else {
+					p.sendMessage(notenough);
+				}
+			} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "[1] McMMO Credit")) {
+				if (CoinsApi.hasEnough(p, 2)) {
+					CoinsApi.loseCoins(p, 2);
+					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "addcredits " + name + " 1");
+			} else {
+				p.sendMessage(notenough);
+			}
+		} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.AQUA + "Silk Touch I")) {
+			if (CoinsApi.hasEnough(p, 7)) {
+				CoinsApi.loseCoins(p, 7);
+				p.getInventory().addItem(start12);
+			} else {
+				p.sendMessage(notenough);
+			}
+		} else  if (e.getCurrentItem().getItemMeta().getDisplayName().contains(ChatColor.GOLD + "" + ChatColor.BOLD + "Armor")) {
+			e.getWhoClicked().sendMessage(ChatColor.DARK_RED + "Coming soon ~ Leegit > under development");
+		}
+	}
+}
+}
