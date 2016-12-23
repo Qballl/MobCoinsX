@@ -1,0 +1,48 @@
+package me.LegitCoding1.MobCoins;
+
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class Main extends JavaPlugin {
+	
+	private static Plugin plugin;
+	
+	public static FileConfiguration config;
+	public static Main Plugin = null;
+	
+	
+	public void onEnable() {
+		registerEvents(this, new ListenerDrop(), new Shop());
+		getCommand("mobcoins").setExecutor(new Command());
+		getCommand("coinshop").setExecutor(new Command());
+		getCommand("cs").setExecutor(new Command());
+		getCommand("mc").setExecutor(new Command());
+		plugin = this;
+		getConfig().options().copyDefaults(true);
+		saveConfig();
+		config = getConfig();
+		Plugin = this;
+	}
+	
+	public static void SaveConfig(){
+		plugin.saveConfig();
+	}
+	
+	public void onDisable() {
+		plugin = null;
+	}
+	
+	public static void registerEvents(org.bukkit.plugin.Plugin plugin, Listener... listeners) {
+		for (Listener listener : listeners) {
+			Bukkit.getServer().getPluginManager().registerEvents(listener, plugin);
+		}
+	}
+	
+	public static Plugin getPlugin() {
+		return plugin;
+	}
+
+}
